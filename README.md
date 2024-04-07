@@ -83,4 +83,5 @@ mvn clean package -Dquarkus.kubernetes.deploy=true
 
 ## Conclusion
 By following these steps, you can deploy your Vert.x in Quarkus application both locally with Minikube for testing and on Google Kubernetes Engine (GKE) for production. This streamlined deployment process leverages modern tools like Jib and GKE to simplify container image building and Kubernetes orchestration.
-```
+
+
