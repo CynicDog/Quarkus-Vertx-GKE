@@ -66,7 +66,7 @@ mvn clean package -Dquarkus.container-image.build=true \
 
 ### Create a GKE Cluster
 Create a Kubernetes cluster on Google Kubernetes Engine:
-
+<img width="1423" alt="Capture 2024-04-07 at 11 48 25 AM" src="https://github.com/CynicDog/Vertx-Quarkus-GKE/assets/96886982/d9d05f46-4f13-4736-a6dc-8a89201b9208">
 
 
 ### Connect to GKE Cluster
