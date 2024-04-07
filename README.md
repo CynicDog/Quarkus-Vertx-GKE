@@ -12,7 +12,7 @@ This project demonstrates deploying a Quarkus-based Vert.x application to Google
 - **Google Kubernetes Engine (GKE)**: A managed Kubernetes service provided by Google Cloud Platform (GCP).
 - **Jib**: A container image building tool that simplifies packaging Java applications into container images without needing a Dockerfile.
 
-## Local Deployment with Minikube
+# Local Deployment with Minikube
 
 ### Prerequisites
 - Ensure Minikube is installed and initialized:
@@ -41,7 +41,7 @@ kubectl exec -it vertx-quarkus-demo-<POD_ID> -- /bin/bash
 curl http://vertx-quarkus-demo/greeting
 ```
 
-## Deployment to Google Kubernetes Engine (GKE)
+# Deployment to Google Kubernetes Engine (GKE)
 
 ### Configure Google Cloud SDK
 Initialize and configure the Google Cloud SDK for authentication:
@@ -66,7 +66,7 @@ mvn clean package -Dquarkus.container-image.build=true \
 
 ### Create a GKE Cluster
 Create a Kubernetes cluster on Google Kubernetes Engine:
-
+<img width="1423" alt="Capture 2024-04-07 at 11 48 25 AM" src="https://github.com/CynicDog/Vertx-Quarkus-GKE/assets/96886982/d9d05f46-4f13-4736-a6dc-8a89201b9208">
 
 
 ### Connect to GKE Cluster
@@ -83,4 +83,5 @@ mvn clean package -Dquarkus.kubernetes.deploy=true
 
 ## Conclusion
 By following these steps, you can deploy your Vert.x in Quarkus application both locally with Minikube for testing and on Google Kubernetes Engine (GKE) for production. This streamlined deployment process leverages modern tools like Jib and GKE to simplify container image building and Kubernetes orchestration.
-```
+
+
