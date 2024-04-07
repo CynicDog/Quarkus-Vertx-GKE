@@ -1,8 +1,42 @@
-# React + Vite
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+# Deploying React Application on Minikube
 
-Currently, two official plugins are available:
+This project demonstrates deploying a React application to Minikube using Docker and Kubernetes for local development and testing.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Development Environment
+- **Operating System**: macOS 13.2.1 (Build 22D68)
+
+# Local Deployment with Minikube
+
+### Prerequisites
+Ensure Minikube is installed and initialized:
+```bash
+minikube start
+```
+
+### Configure Docker Client for Minikube
+Configure the local Docker client to use the Docker daemon running inside Minikube:
+```bash
+eval $(minikube docker-env)
+```
+
+### Build Docker Image
+Build the Docker image for the React application:
+```bash
+docker build -t cynicdog/vertx-quarkus-react:v1.0 .
+```
+
+### Deploy Application to Minikube
+Deploy the React application to Minikube using a Kubernetes manifest file:
+```bash
+kubectl apply -f manifest.yaml
+```
+
+### Test Deployment
+Access the deployed React application:
+```bash
+minikube service <SERVICE_NAME>
+```
+
+## Conclusion
+By following these steps, you can deploy your React application to Minikube using Docker and Kubernetes. This local deployment process allows for testing and development of your application in a Kubernetes environment before production deployment.
