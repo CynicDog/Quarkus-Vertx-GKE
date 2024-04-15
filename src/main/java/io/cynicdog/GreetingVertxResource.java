@@ -2,6 +2,7 @@ package io.cynicdog;
 
 import io.vertx.core.Vertx;
 import io.vertx.ext.web.Router;
+import io.vertx.ext.web.handler.StaticHandler;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.enterprise.event.Observes;
 import jakarta.inject.Inject;
@@ -22,6 +23,10 @@ public class GreetingVertxResource {
             logger.info("Request path: " + ctx.request().path());
             ctx.next();
         });
+
+        // serve entry page to the requests of root path
+        router.route().handler(StaticHandler.create());
+        router.get("/").handler(routingContext -> { routingContext.response().putHeader("Content-Type", "text/html").sendFile( "src/main/webui/quinoa.html"); });
 
         // kubectl exec -it vertx-quarkus-demo -- /bin/bash
         // curl http://vertx-quarkus-demo/greeting
