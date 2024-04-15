@@ -26,6 +26,6 @@ public class GreetingVertxResource {
         // kubectl exec -it vertx-quarkus-demo -- /bin/bash
         // curl http://vertx-quarkus-demo/greeting
         router.get("/greeting")
-                .handler(ctx -> ctx.response().end("Greeting from Vertx in Quarkus."));
+                .handler(ctx -> ctx.response().end("Greeting from Vertx in Quarkus 👾"));
     }
 }
