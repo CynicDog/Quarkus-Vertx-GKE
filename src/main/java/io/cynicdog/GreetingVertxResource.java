@@ -24,10 +24,6 @@ public class GreetingVertxResource {
             ctx.next();
         });
 
-        // serve entry page to the requests of root path
-        router.route().handler(StaticHandler.create());
-        router.get("/").handler(routingContext -> { routingContext.response().putHeader("Content-Type", "text/html").sendFile( "src/main/webui/quinoa.html"); });
-
         // kubectl exec -it vertx-quarkus-demo -- /bin/bash
         // curl http://vertx-quarkus-demo/greeting
         router.get("/greeting")
