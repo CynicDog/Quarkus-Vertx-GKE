@@ -16,6 +16,7 @@
     5. [Connect to GKE Cluster](#connect-to-gke-cluster)
     6. [Deploy the Application to GKE](#deploy-the-application-to-gke)
     7. [Reserve Static IP Address for the Deployed App](#reserve-static-ip-address-for-the-deployed-app)
+    8. [Create DNS record set](#create-dns-record-set)
 6. [Conclusion](#conclusion)
 
 # Deploying Vert.x in Quarkus Application on GKE
@@ -144,6 +145,13 @@ To expose a Quarkus application to the public via Ingress with a global static I
    ```bash
    http http://{GIVEN_STATIC_IP}/
    ```
+
+
+### Create DNS record set 
+To point your domain www.archeio.xyz to the deployed application using the reserved static IP address, you can use the Google Cloud DNS service:
+```bash
+gcloud dns --project={YOUR_PROJECT_NAME} record-sets create {ENTER_PREFIX_HERE}.{YOUR_DNS_NAME} --zone={YOUR_ZONE} --type="A" --ttl="300" --rrdatas={RESERVED_STATIC_IP}
+```
 
 ## Conclusion
 By following these steps, you can deploy your Vert.x in Quarkus application both locally with Minikube for testing and on Google Kubernetes Engine (GKE) for production. This streamlined deployment process leverages modern tools like Jib and GKE to simplify container image building and Kubernetes orchestration.
