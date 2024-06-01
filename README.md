@@ -1,5 +1,24 @@
-Deploying Vert.x in Quarkus Application on GKE 
-=======================================
+# Index 
+
+1. [Deploying Vert.x in Quarkus Application on GKE](#deploying-vertx-in-quarkus-application-on-gke)
+2. [Development Environment](#development-environment)
+3. [Technologies Used](#technologies-used)
+4. [Local Deployment with Minikube](#local-deployment-with-minikube)
+    1. [Prerequisites](#prerequisites)
+    2. [Configure Docker Client for Minikube](#configure-docker-client-for-minikube)
+    3. [Package and Deploy the Application](#package-and-deploy-the-application)
+    4. [Test Deployment](#test-deployment)
+5. [Deployment to Google Kubernetes Engine (GKE)](#deployment-to-google-kubernetes-engine-gke)
+    1. [Configure Google Cloud SDK](#configure-google-cloud-sdk)
+    2. [Configure Docker Authentication for GCR](#configure-docker-authentication-for-gcr)
+    3. [Build and Push Container Image to GCR](#build-and-push-container-image-to-gcr)
+    4. [Create a GKE Cluster](#create-a-gke-cluster)
+    5. [Connect to GKE Cluster](#connect-to-gke-cluster)
+    6. [Deploy the Application to GKE](#deploy-the-application-to-gke)
+    7. [Reserve Static IP Address for the Deployed App](#reserve-static-ip-address-for-the-deployed-app)
+6. [Conclusion](#conclusion)
+
+# Deploying Vert.x in Quarkus Application on GKE
 
 This project demonstrates deploying a Quarkus-based Vert.x application to Google Kubernetes Engine (GKE).
 
@@ -68,7 +87,6 @@ mvn clean package -Dquarkus.container-image.build=true \
 Create a Kubernetes cluster on Google Kubernetes Engine:
 <img width="1423" alt="Capture 2024-04-07 at 11 48 25 AM" src="https://github.com/CynicDog/Vertx-Quarkus-GKE/assets/96886982/d9d05f46-4f13-4736-a6dc-8a89201b9208">
 
-
 ### Connect to GKE Cluster
 Connect your terminal to the generated Kubernetes cluster on GKE:
 ```bash
@@ -81,7 +99,51 @@ Deploy the Quarkus application to the GKE cluster:
 mvn clean package -Dquarkus.kubernetes.deploy=true
 ```
 
+### Reserve Static IP Address for the Deployed App
+
+To expose a Quarkus application to the public via Ingress with a global static IP address, follow these steps:
+
+1. **Create a Global Static IP Address:**
+   ```bash
+   gcloud compute addresses create {A_NAME_FOR_GLOBAL_STATIC_IP} --global
+   ```
+
+2. **Update Configuration:**
+   Add the following configuration, ensuring to include double quotation marks as shown:
+   ```yaml
+   quarkus:
+     kubernetes:
+       ingress:
+         expose: true
+         annotations:
+           "kubernetes.io/ingress.global-static-ip-name": "{A_NAME_FOR_GLOBAL_STATIC_IP}"
+   ```
+
+3. **Verify Configuration:**
+   Once configured, the generated `kubernetes.yml` manifest should contain the following in the `metadata.annotations` section:
+   ```yaml
+   metadata:
+     annotations:
+       kubernetes.io/ingress.global-static-ip-name: {A_NAME_FOR_GLOBAL_STATIC_IP}
+   ```
+
+4. **Check Deployment:**
+   Verify if the application is deployed with the reserved static IP address:
+   ```bash
+   kubectl get ingress
+   ```
+
+   Example output:
+   ```plaintext
+   NAME      CLASS    HOSTS   ADDRESS              PORTS   AGE
+   archeio   <none>   *       {GIVEN_STATIC_IP}    80      31m
+   ```
+
+5. **Test Deployment:**
+   Ensure the application is accessible using the reserved static IP address:
+   ```bash
+   http http://{GIVEN_STATIC_IP}/
+   ```
+
 ## Conclusion
 By following these steps, you can deploy your Vert.x in Quarkus application both locally with Minikube for testing and on Google Kubernetes Engine (GKE) for production. This streamlined deployment process leverages modern tools like Jib and GKE to simplify container image building and Kubernetes orchestration.
-
-
