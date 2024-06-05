@@ -148,7 +148,7 @@ To expose a Quarkus application to the public via Ingress with a global static I
 
 
 ### Create DNS record set 
-To point your domain www.archeio.xyz to the deployed application using the reserved static IP address, you can use the Google Cloud DNS service:
+To point your domain to the deployed application using the reserved static IP address, you can use the Google Cloud DNS service:
 ```bash
 gcloud dns --project={YOUR_PROJECT_NAME} record-sets create {ENTER_PREFIX_HERE}.{YOUR_DNS_NAME} --zone={YOUR_ZONE} --type="A" --ttl="300" --rrdatas={RESERVED_STATIC_IP}
 ```
