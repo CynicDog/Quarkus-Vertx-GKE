@@ -137,7 +137,7 @@ To expose a Quarkus application to the public via Ingress with a global static I
    Example output:
    ```plaintext
    NAME      CLASS    HOSTS   ADDRESS              PORTS   AGE
-   archeio   <none>   *       {GIVEN_STATIC_IP}    80      31m
+   {PROJECT} <none>   *       {GIVEN_STATIC_IP}    80      31m
    ```
 
 5. **Test Deployment:**
